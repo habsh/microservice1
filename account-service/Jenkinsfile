@@ -11,7 +11,9 @@ pipeline {
 
         stage('Build') {
 			steps {
+				bat 'cd ./account-service'
 				bat 'mvn clean install'
+				
 				}
 			}       
 		}

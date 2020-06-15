@@ -13,32 +13,11 @@ pipeline {
         }
 
         stage('Build') {
-		steps {
-            bat 'mvn clean install'
-			}
-        }
-
-        stage('Image') {
 			steps {
-					cd ./account-service 
-					def app = docker build "account-service:accounts"
-					docker push "account-service:accounts"
-					
+				bat 'mvn clean install'
 				}
-        }
+			}       
+		}
+	}
 
-        stage ('Run') {
-		steps {
-            docker image run -p 2222:2222 -h account --name account --link discovery
-			}
-        }
 
-        stage ('Final') {
-		steps {
-            build job: 'customer-service-pipeline', wait: false
-			}
-        }      
-
-    }
-
-}

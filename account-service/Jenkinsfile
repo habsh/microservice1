@@ -1,6 +1,6 @@
 node {
 
-    withMaven(maven:'maven') {
+    withMaven(maven:'maven3.3.9') {
 
         stage('Checkout') {
             git url: 'https://github.com/habsh/microservice1.git', CredentialsID: 'github', branch: 'master'

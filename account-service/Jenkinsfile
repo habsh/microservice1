@@ -14,7 +14,7 @@ node {
         }
         stage('Image') {
             dir ('account-service') {
-                def app = docker.build "account-service:${env.version}"
+                def app = docker.build "habsh/microservice1:account-service:${env.version}"
                 app.push()
             }
         }

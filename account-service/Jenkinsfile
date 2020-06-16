@@ -1,6 +1,6 @@
 node {
 
-    withMaven(maven:'maven3.3.9') {
+    withMaven(maven:'maven') {
 
         stage('Checkout') {
             git url: 'https://github.com/habsh/microservice1.git', credentialsId: 'habsh', branch: 'master'
@@ -16,13 +16,13 @@ node {
 
         stage('Image') {
             dir ('account-service') {
-                def app = docker.build "localhost:5000/account-service:${env.version}"
+                def app = docker.build "account-service:${env.version}"
                 app.push()
             }
         }
 
         stage ('Run') {
-            docker.image("localhost:5000/account-service:${env.version}").run('-p 2222:2222 -h account --name account --link discovery')
+            docker.image("account-service:${env.version}").run('-p 2222:2222 -h account --name account --link discovery')
         }
 
         stage ('Final') {

@@ -15,7 +15,9 @@ node {
         stage('Image') {
             dir ('account-service') {
                 def app = docker.build "habsh/account-service:${env.version}"
-                app.push()
+				docker.withRegistry('https://hub.docker.com/v2/', 'dockerhub') {
+					app.push()
+					}
             }
         }
         stage ('Run') {
